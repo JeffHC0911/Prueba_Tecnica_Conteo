@@ -8,8 +8,8 @@ import Pagination from "./components/Pagination";
 const App = () => {
   const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState("");
-  const [currentPage, setCurrentPage] = useState(1); // Página actual
-  const [productsPerPage] = useState(5); // Productos por página
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(5);
 
   const handleAddProduct = (newProduct) => {
     setProducts([...products, newProduct]);
@@ -21,10 +21,9 @@ const App = () => {
 
   const handleFilterChange = (filterType) => {
     setFilter(filterType);
-    setCurrentPage(1); // Reiniciar a la primera página al cambiar el filtro
+    setCurrentPage(1);
   };
 
-  // Ordenar productos según el filtro
   const sortedProducts = [...products].sort((a, b) => {
     if (filter === "code") return a.code - b.code;
     if (filter === "name") return a.name.localeCompare(b.name);
@@ -33,12 +32,10 @@ const App = () => {
     return 0;
   });
 
-  // Lógica de paginación
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = sortedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  // Cambiar de página
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
